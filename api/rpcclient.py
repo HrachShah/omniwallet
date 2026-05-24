@@ -45,7 +45,7 @@ class RPCHost():
                 if tries == 0:
                     raise Exception('Failed to connect for remote procedure call.')
                 hadFailedConnections = True
-                print("Couldn't connect for remote procedure call, will sleep for ten seconds and then try again ({} more tries)".format(tries))
+                print(("Couldn't connect for remote procedure call, will sleep for ten seconds and then try again ({} more tries)".format(tries)))
                 time.sleep(10)
             else:
                 if hadConnectionFailures:
@@ -80,7 +80,7 @@ def getblock(hash):
 def sendrawtransaction(tx):
     try:
       return host.call("sendrawtransaction", tx)
-    except Exception, e:
+    except Exception as e:
       return e
 
 def validateaddress(addr):
