@@ -10,7 +10,7 @@ app.debug = True
 def fixDecimal(value):
     try:
       return str(ceil(float(value)*(1e8))/1e8)
-    except Exception as e:
+    except ValueError as e:
       print "couldn't convert ",value,"got error: ",e
 
 #@app.route('/book')
@@ -79,7 +79,7 @@ def getDesignatingCurrencies():
         ret=getDesignatingCurrenciesOmniExchange(ecosystem,filter)
       else:
         ret=getDesignatingCurrenciesOmniDex(ecosystem,filter)
-    except Exception as e:
+    except ValueError as e:
       print e
       ret=getDesignatingCurrenciesOmniDex(ecosystem,filter)
 
