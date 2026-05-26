@@ -39,10 +39,10 @@ def decode(rawhex):
     sender  = rawOMNI['sendingaddress']
     try:
       reference = rawOMNI['referenceaddress']
-    except:
+    except KeyError:
       reference = ""
-  except Exception as e:
-    rawOMNI=e.message
+  except (ValueError, LookupError) as e:
+    rawOMNI=e.args[0] if e.args else str(e)
     sia=0
     sender=""
     reference=""
