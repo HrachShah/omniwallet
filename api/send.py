@@ -109,7 +109,7 @@ def send_form_response(response_dict):
       response='{"status":"'+response_status+'", "transaction":"'+tx_to_sign_dict['transaction']+'", "sourceScript":"'+tx_to_sign_dict['sourceScript']+'"}'
       print "Sending unsigned tx to user for signing", response
       return (response, None)
-    except Exception as e:
+    except ValueError as e:
       print "error creating unsigned tx", e
       return (None, str(e))
 
