@@ -6,7 +6,7 @@ def insertpending(txhex):
 
   try:
     rawtx = decode(txhex)
-  except Exception,e:
+  except Exception as e:
     print "Error: ", e, "\n Could not decode PendingTx: ", txhex
     return
 
@@ -14,14 +14,14 @@ def insertpending(txhex):
     try:
       #handle btc pending amounts
       insertbtc(rawtx)
-    except Exception,e:
+    except Exception as e:
       print "error inserting btc", e, "\n Could notinsert rawtx", rawtx
 
   error_strings = ["No Omni Layer Protocol transaction","Error in omni_decodetransaction"]
   if 'MP' in rawtx and not any(x in rawtx['MP'] for x in error_strings):
     try:
       insertomni(rawtx)
-    except Exception,e:
+    except Exception as e:
       print "error inserting omni", e, "\n Could notinsert rawtx", rawtx
 
 
@@ -70,7 +70,7 @@ def insertbtc(rawtx):
     dbExecute("insert into txjson (txdbserialnum, protocol, txdata) values (%s,%s,%s)", (txdbserialnum, protocol, json.dumps(rawtx['BTC'])) )
 
     dbCommit()
-  except Exception,e:
+  except Exception as e:
     print "Error: ", e, "\n Could not add BTC PendingTx: ", rawtx
     dbRollback()  
 
@@ -152,7 +152,7 @@ def insertomni(rawtx):
     dbExecute("insert into txjson (txdbserialnum, protocol, txdata) values (%s,%s,%s)", (txdbserialnum, protocol, json.dumps(rawtx['MP'])) )
 
     dbCommit()
-  except Exception,e:
+  except Exception as e:
     print "Error: ", e, "\n Could not add OMNI PendingTx: ", rawtx
     dbRollback()
 
