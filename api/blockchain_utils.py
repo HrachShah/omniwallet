@@ -97,7 +97,7 @@ def bc_getutxo_blockcypher(address, ramount):
     if r.status_code == 200:
       try:
         unspents = r.json()['txrefs']
-      except Exception as e:
+      except (json.JSONDecodeError, KeyError) as e:
         print "no txrefs in bcypher json response"
         unspents = []
       print "got unspent list (bcypher)", unspents
@@ -115,7 +115,7 @@ def bc_getutxo_blockcypher(address, ramount):
       return {"avail": avail, "error": "Low balance error"}
     else:
       return {"error": "Connection error", "code": r.status_code}
-  except Exception as e:
+  except (requests.RequestException, OSError, ValueError, TypeError, AttributeError) as e:
     if 'call' in e.message:
       msg=e.message.split("call: ")[1]
       ret=re.findall('{.+',str(msg))
@@ -148,7 +148,7 @@ def bc_getbalance(address):
     balance=json.loads(balance)
     if balance['error']:
       raise LookupError("Not cached")
-  except Exception as e:
+  except (ConnectionError, TimeoutError, json.JSONDecodeError, ValueError, TypeError) as e:
     balance = bc_getbalance_bitgo(address)
     #cache btc balance for 2.5 minutes
     rSet("omniwallet:balances:address:"+str(address),json.dumps(balance))
