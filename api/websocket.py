@@ -24,7 +24,7 @@ try:
     socketio = SocketIO(app,cors_allowed_origins=config.WEBSOCKET_CORS)
   else:
     socketio = SocketIO(app)
-except:
+except AttributeError:
   socketio = SocketIO(app)
 
 #threads

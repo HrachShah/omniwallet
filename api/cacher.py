@@ -6,7 +6,7 @@ r = redis.StrictRedis(host=config.REDIS_HOST, port=config.REDIS_PORT, db=config.
 
 try:
   expTime=config.BTCBAL_CACHE
-except:
+except AttributeError:
   expTime=600
 
 def rGet(key):
