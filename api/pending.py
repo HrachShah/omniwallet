@@ -6,7 +6,7 @@ def insertpending(txhex):
 
   try:
     rawtx = decode(txhex)
-  except Exception,e:
+  except (KeyError, TypeError, ValueError) as e:
     print "Error: ", e, "\n Could not decode PendingTx: ", txhex
     return
 
@@ -14,14 +14,14 @@ def insertpending(txhex):
     try:
       #handle btc pending amounts
       insertbtc(rawtx)
-    except Exception,e:
+    except (KeyError, TypeError, ValueError, decimal.InvalidOperation) as e:
       print "error inserting btc", e, "\n Could notinsert rawtx", rawtx
 
   error_strings = ["No Omni Layer Protocol transaction","Error in omni_decodetransaction"]
   if 'MP' in rawtx and not any(x in rawtx['MP'] for x in error_strings):
     try:
       insertomni(rawtx)
-    except Exception,e:
+    except (KeyError, TypeError, ValueError, decimal.InvalidOperation) as e:
       print "error inserting omni", e, "\n Could notinsert rawtx", rawtx
 
 

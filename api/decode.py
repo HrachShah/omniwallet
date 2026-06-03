@@ -39,9 +39,9 @@ def decode(rawhex):
     sender  = rawOMNI['sendingaddress']
     try:
       reference = rawOMNI['referenceaddress']
-    except:
+    except KeyError:
       reference = ""
-  except Exception as e:
+  except (KeyError, TypeError, ValueError) as e:
     rawOMNI=e.message
     sia=0
     sender=""
