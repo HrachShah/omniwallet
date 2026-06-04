@@ -106,7 +106,7 @@ def create():
            return jsonify({"status": "ERROR", "error":"InvalidCaptcha"})
       else:
         raise "response error "+str(r.content)
-    except Exception as e:
+    except (json.JSONDecodeError, ValueError, TypeError) as e:
       print e
       return jsonify({"status": "ERROR", "error":"InvalidCaptcha"})
 
@@ -336,7 +336,7 @@ def login():
     if asq[0]:
       try:
         question=json.loads(asq[1])['question']
-      except Exception as e:
+      except (json.JSONDecodeError, ValueError, TypeError) as e:
         print "couldn't load user setting 'ASQ', error:",e
 
   response = {
@@ -425,7 +425,7 @@ def encrypt_value(value):
     justify=int(((len(value)/16) + 1) * 16)
     message=value.rjust(justify)
     return True,obj.encrypt(message).decode('latin-1')
-  except Exception as e:
+  except (ValueError, TypeError) as e:
     return False, e
 
 def decrypt_value(input):
@@ -436,7 +436,7 @@ def decrypt_value(input):
   try:
     obj = AES.new(config.AESKEY, AES.MODE_CBC, config.AESIV)
     return True, obj.decrypt(value).strip()
-  except Exception as e:
+  except (ValueError, TypeError) as e:
     return False, e
 
 def get_setting(uuid,key):
