@@ -15,7 +15,7 @@ def getRPCconn():
     conn = bitcoinrpc.connect_to_local()
     try:
     	conn.getblockcount()
-    except StandardError:
+    except Exception:
     	try:
             with open('/home/'+USER+'/.bitcoin/bitcoin.conf') as fp:
                 RPCPORT="8332"
@@ -40,7 +40,7 @@ def getRPCconn():
             return response
         try:
             conn = bitcoinrpc.connect_to_remote(RPCUSER,RPCPASS,host=RPCHOST,port=RPCPORT,use_https=RPCSSL)
-     	except StandardError:
+     except Exception:
             response='{"error": "Connection to bitcoind server unavailable. Please try agian in 5 minutes"}'
             return response
     return conn
