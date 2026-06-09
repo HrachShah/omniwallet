@@ -80,7 +80,7 @@ def pushtxnode(signed_tx):
 
         try:
           response=json.dumps({"status":response_status, "pushed": error_codez[ str(output['code']) ], "message": message, "code": output['code'] })
-        except KeyError, e:
+        except KeyError as e:
           response=json.dumps({"status":response_status, "pushed": str(e), "message": message, "code": output['code'] })
     else:
         response_status='OK'

@@ -25,7 +25,7 @@ def generate_unsigned():
     #pubKeyHash = binary_to_hex(ripemd160.digest())
     try:
         tnet_ = request.form['testnet']
-    except KeyError, e:
+    except KeyError as e:
         tnet_ = 0
     #Translate raw txn
     decoded_tx = decoderawtransaction(unsigned_hex)['result']
