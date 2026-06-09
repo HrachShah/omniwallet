@@ -80,7 +80,7 @@ def getblock(hash):
 def sendrawtransaction(tx):
     try:
       return host.call("sendrawtransaction", tx)
-    except Exception, e:
+    except Exception as e:
       return e
 
 def validateaddress(addr):

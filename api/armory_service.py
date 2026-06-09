@@ -25,7 +25,7 @@ def generate_unsigned():
     #pubKeyHash = binary_to_hex(ripemd160.digest())
     try:
         tnet_ = request.form['testnet']
-    except KeyError, e:
+    except KeyError as e:
         tnet_ = 0
     #Translate raw txn
     decoded_tx = decoderawtransaction(unsigned_hex)['result']
@@ -103,7 +103,7 @@ def get_raw():
   try:
       utx = UnsignedTransaction()
       utx.unserializeAscii(signed_tx_ascii)
-  except Exception, e:
+  except Exception as e:
       raise Exception("Could not decode transaction: %s" % e)
   
   #see if the tx is signed
@@ -114,7 +114,7 @@ def get_raw():
       pytx = utx.getSignedPyTx()
       raw_tx_bin = pytx.serialize()
       raw_tx_hex = binary_to_hex(raw_tx_bin)
-  except Exception, e:
+  except Exception as e:
       raise Exception("Could not serialize transaction: %s" % e)
   
   return jsonify({'rawTransaction':raw_tx_hex})
