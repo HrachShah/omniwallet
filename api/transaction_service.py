@@ -18,7 +18,7 @@ def estimatefees(addr):
 
     try:
       amountBTC=int( Decimal(request.form['amountBTC']) * Decimal(1e8))
-    except:
+    except (KeyError, ValueError, TypeError, decimal.InvalidOperation, OverflowError):
       amountBTC=0
 
     #get dynamic fee rates from db
@@ -351,7 +351,7 @@ def getName(propertyid):
     try:
       ROWS=dbSelect("select propertyname from smartproperties where protocol='Omni' and propertyid=%s",[int(propertyid)])
       name = ROWS[0][0]+" #"+str(propertyid)
-    except:
+    except (KeyError, ValueError, TypeError, decimal.InvalidOperation, OverflowError, IndexError):
       name = "#"+str(propertyid)
   return name
 
