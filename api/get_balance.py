@@ -1,5 +1,4 @@
-import urlparse
-import os, sys
+import sys
 import json
 #tools_dir = os.environ.get('TOOLSDIR')
 #lib_path = os.path.abspath(tools_dir)
@@ -62,7 +61,7 @@ def get_btc_balances( addr ):
 
 def get_balance_response(request_dict):
   import re
-  print "get_balance_response(request_dict)",request_dict
+  print("get_balance_response(request_dict)", request_dict)
 
   try:
       addrs_list=request_dict['addr']
