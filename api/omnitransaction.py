@@ -24,13 +24,13 @@ class OmniTransaction:
 
         try:
           if config.D_PUBKEY and ( 'donate' in form ) and ( form['donate'] in ['true', 'True'] ):
-            print "We're Donating to pubkey for: "+pybitcointools.pubkey_to_address(config.D_PUBKEY)
+            print("We're Donating to pubkey for: "+pybitcointools.pubkey_to_address(config.D_PUBKEY))
             self.pubkey = config.D_PUBKEY
           else:
-            print "not donating"
+            print("not donating")
             self.pubkey = form['pubkey']
-        except NameError, e:
-          print e
+        except NameError as e:
+          print(e)
           self.pubkey = form['pubkey']
         #self.fee = estimateFee(self.confirm_target)['result']
         #make sure fee is correct length
@@ -78,9 +78,9 @@ class OmniTransaction:
         fee_total_satoshi = int( round( fee_total * Decimal(1e8) ) )
 
         # Get utxo to generate inputs
-        print "Calling bc_getutxo with ", self.rawdata['transaction_from'], fee_total_satoshi
+        print("Calling bc_getutxo with ", self.rawdata["transaction_from"], fee_total_satoshi)
         dirty_txes = bc_getutxo( self.rawdata['transaction_from'], fee_total_satoshi )
-        print "received", dirty_txes
+        print("received", dirty_txes)
 
         if (dirty_txes['error'][:3]=='Con'):
             return { "status": "NOT OK", "error": "Couldn't get list of unspent tx's. Response Code: " + str(dirty_txes['code'])  }

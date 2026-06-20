@@ -26,7 +26,7 @@ def sql_connect():
     try:     
         con = psycopg2.connect(database=DBNAME, user=DBUSER, password=DBPASS, host=DBHOST, port=DBPORT)
         return con
-    except psycopg2.DatabaseError, e:
+    except psycopg2.DatabaseError as e:
         print 'Error %s' % e    
         sys.exit(1)
 
@@ -56,7 +56,7 @@ def dbSelect(statement, values=None):
         con.commit()
         con.close()
         return ROWS
-    except psycopg2.DatabaseError, e:
+    except psycopg2.DatabaseError as e:
         print 'Error', e, 'Rollback returned: ', dbRollback()
         sys.exit(1)
 
@@ -64,7 +64,7 @@ def dbExecute(statement, values=None):
     dbInit()
     try:
         dbc.execute(statement, values)
-    except psycopg2.DatabaseError, e:
+    except psycopg2.DatabaseError as e:
         print 'Error', e, 'Rollback returned: ', dbRollback()
         sys.exit(1)
 
@@ -72,7 +72,7 @@ def dbCommit():
     try:
         con.commit()
         con.close()
-    except psycopg2.DatabaseError, e:
+    except psycopg2.DatabaseError as e:
         print 'Error', e, 'Rollback returned: ', dbRollback()
         sys.exit(1)
 

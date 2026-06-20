@@ -36,7 +36,7 @@ def accept_form_response(response_dict):
         print "We're Donating to pubkey for: "+pybitcointools.pubkey_to_address(config.D_PUBKEY)
         global donate
         donate=True
-    except NameError, e:
+    except NameError as e:
       print e
 
     buyer = response_dict['buyer'][0].strip()
