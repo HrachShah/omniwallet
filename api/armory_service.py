@@ -1,4 +1,3 @@
-import urlparse
 import os, sys, re, random,pybitcointools, bitcoinrpc, math, hashlib
 from decimal import Decimal
 from flask import Flask, request, jsonify, abort, json, make_response

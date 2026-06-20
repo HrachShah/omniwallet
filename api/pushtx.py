@@ -47,20 +47,20 @@ def pushtx_response(response_dict):
       try:
         insertpending(signed_tx)
       except Exception as e:
-        print "error inserting pending tx"+str(e)
+        print("error inserting pending tx"+str(e))
     
-    print signed_tx,'\n', response
+    print(signed_tx,'\n', response)
     return (response, None)
 
 def pushtxnode(signed_tx):
     import commands, json
     signed_tx = re.sub(r'\W+', '', signed_tx) #check alphanumeric
     #output=commands.getoutput('bitcoind sendrawtransaction ' +  str(signed_tx) )
-    print "final signed", signed_tx
+    print("final signed", signed_tx)
     output=sendrawtransaction(str(signed_tx))
     #output="Test output for error code handling: : {u'message': u'66: insufficient priority', u'code': -26}"
 
-    print 'raw response',output,'\n'
+    print('raw response',output,'\n')
 
     ret=re.findall('{.+',str(output))
     if 'code' in ret[0]:
@@ -86,7 +86,7 @@ def pushtxnode(signed_tx):
         response_status='OK'
         response=json.dumps({"status":response_status, "pushed": 'success', "tx": output['result'] })
 
-    print response
+    print(response)
     return response
 
 def pushtx_handler(environ, start_response):
